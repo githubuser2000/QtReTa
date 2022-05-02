@@ -15,9 +15,12 @@ import string
 import os
 from pathlib import Path
 home = str(Path.home())
+import binascii
+from data import base
 
 def fkt(var):
     print("bla "+str(var))
+
 
 
 if __name__ == "__main__":
@@ -30,9 +33,14 @@ if __name__ == "__main__":
     #with open("/home/alex/comp.html.zstd", "wb") as f:
     #    f.write(comp)
     #
-    with open("/home/alex/comp.html.zstd", "rb") as f:
-        comp += f.read()
-    decomp = zstd.decompress(comp)
+    #with open("/home/alex/comp.html.zstd", "rb") as f:
+    #    comp += f.read()
+    #base = binascii.b2a_base64(comp)
+    #with open("/home/alex/base.txt", "wb") as f:
+    #    f.write(base)
+    ##comp = binascii.a2b_base64(base)
+    #print(str(base))
+    decomp = zstd.decompress(binascii.a2b_base64(base))
     randstr = ""
     for i in range(0, 13):
         randstr += random.choice(string.ascii_letters)
@@ -46,3 +54,4 @@ if __name__ == "__main__":
     onexi = app.exec()
     os.remove(home+os.sep+randstr+".html")
     sys.exit(onexi)
+
