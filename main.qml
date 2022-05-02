@@ -10,6 +10,7 @@ Window {
     id : win
     WebEngineView {
         id : web
+        visible: true
         anchors.fill: parent
         url: "https://www.qt.io"
     }

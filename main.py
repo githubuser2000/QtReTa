@@ -13,8 +13,8 @@ if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
     engine.load(os.fspath(Path(__file__).resolve().parent / "main.qml"))
-    w = engine.rootObjects()[0].findChild(QObject, "win")
-    print(str(w))
+    w = engine.rootObjects()[0].children()[1]
+    print(str((w.property("url"))))
     if not engine.rootObjects():
         sys.exit(-1)
     sys.exit(app.exec_())
