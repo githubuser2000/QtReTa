@@ -20,18 +20,23 @@ tempdir = tempfile.gettempdir()
 import binascii
 from data import base
 
+randstr = ""
+
 def fkt(var):
     print("bla "+str(var))
 
 class MyAppEng(QQmlApplicationEngine):
     @Slot()
     def entf(self):
+        global randstr
         os.remove(tempdir+os.sep+randstr+".html")
     def __init__(self):
         super().__init__()
         self.rootContext().setContextProperty("MyAppEng", self)
 
-if __name__ == "__main__":
+
+def start():
+    global randstr
     app = QGuiApplication(sys.argv)
     engine = MyAppEng()
     engine.rootContext().setContextProperty("MyAppEng", engine)
@@ -50,7 +55,6 @@ if __name__ == "__main__":
     ##comp = binascii.a2b_base64(base)
     #print(str(base))
     decomp = zstd.decompress(binascii.a2b_base64(base))
-    randstr = ""
     for i in range(0, 13):
         randstr += random.choice(string.ascii_letters)
     with open(tempdir+os.sep+randstr+".html", "wb") as f:
@@ -61,5 +65,11 @@ if __name__ == "__main__":
     if not engine.rootObjects():
         sys.exit(-1)
     onexi = app.exec()
-    os.remove(tempdir+os.sep+randstr+".html")
+    try:
+        os.remove(tempdir+os.sep+randstr+".html")
+    except:
+        pass
     sys.exit(onexi)
+
+if __name__ == "__main__":
+    start()
