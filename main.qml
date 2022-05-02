@@ -8,6 +8,7 @@ Window {
     visible: true
     title: qsTr("ReTa")
     id : win
+    visibility: "Maximized"
     WebEngineView {
         id : web
         visible: true
