@@ -13,8 +13,10 @@ import multiprocessing
 import random
 import string
 import os
-from pathlib import Path
-home = str(Path.home())
+#from pathlib import Path
+#home = str(Path.home())
+import tempfile
+tempdir = tempfile.gettempdir()
 import binascii
 from data import base
 
@@ -26,7 +28,7 @@ def fkt(var):
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
-    comp = b""
+    # comp = b""
     #with open('/home/alex/religionen.html', "rb") as f:
     #    lines += f.read()
     #comp = zstd.compress(lines, 5, multiprocessing.cpu_count())
@@ -44,14 +46,14 @@ if __name__ == "__main__":
     randstr = ""
     for i in range(0, 13):
         randstr += random.choice(string.ascii_letters)
-    with open("/home/alex/"+randstr+".html", "wb") as f:
+    with open(tempdir+os.sep+randstr+".html", "wb") as f:
         f.write(decomp)
     engine.load(os.fspath(Path(__file__).resolve().parent / "main.qml"))
     w = engine.rootObjects()[0].children()[1]
-    w.setProperty("url", "file://"+home+"/"+randstr+".html")
+    w.setProperty("url", "file://"+tempdir+"/"+randstr+".html")
     if not engine.rootObjects():
         sys.exit(-1)
     onexi = app.exec()
-    os.remove(home+os.sep+randstr+".html")
+    os.remove(tempdir+os.sep+randstr+".html")
     sys.exit(onexi)
 
