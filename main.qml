@@ -14,5 +14,7 @@ Window {
         visible: true
         anchors.fill: parent
         url: ""
+        onLoadingChanged : if (loadProgress === 100 )  MyAppEng.entf()
+
     }
 }

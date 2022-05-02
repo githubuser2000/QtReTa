@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 
 from PySide6.QtGui import QGuiApplication
-from PySide6.QtCore import QObject
+from PySide6.QtCore import QObject, Slot
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtWebEngineWidgets import QWebEngineView
 import zstd
@@ -23,11 +23,18 @@ from data import base
 def fkt(var):
     print("bla "+str(var))
 
-
+class MyAppEng(QQmlApplicationEngine):
+    @Slot()
+    def entf(self):
+        os.remove(tempdir+os.sep+randstr+".html")
+    def __init__(self):
+        super().__init__()
+        self.rootContext().setContextProperty("MyAppEng", self)
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
-    engine = QQmlApplicationEngine()
+    engine = MyAppEng()
+    engine.rootContext().setContextProperty("MyAppEng", engine)
     # comp = b""
     #with open('/home/alex/religionen.html', "rb") as f:
     #    lines += f.read()
@@ -56,4 +63,3 @@ if __name__ == "__main__":
     onexi = app.exec()
     os.remove(tempdir+os.sep+randstr+".html")
     sys.exit(onexi)
-
