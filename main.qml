@@ -7,7 +7,9 @@ Window {
     height: 480
     visible: true
     title: qsTr("Hello World")
-        WebEngineView {
+    id : win
+    WebEngineView {
+        id : web
         anchors.fill: parent
         url: "https://www.qt.io"
     }
