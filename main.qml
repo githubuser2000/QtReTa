@@ -12,6 +12,6 @@ Window {
         id : web
         visible: true
         anchors.fill: parent
-        url: "file:///home/alex/religionen.html"
+        url: ""
     }
 }
