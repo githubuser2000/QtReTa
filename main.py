@@ -67,7 +67,10 @@ def start():
     w.setProperty("url", "file://"+tempdir+"/"+randstr+".html")
     if not engine.rootObjects():
         sys.exit(-1)
-
+    if "-tray" in sys.argv:
+        engine.rootObjects()[0].setVisible(False)
+    else:
+        print("possible parameters: -tray")
     #icon = QIcon("Jupiter.png")
     #tray = QSystemTrayIcon()
     #tray.setIcon(icon)
