@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 
 from PySide6.QtGui import QGuiApplication, QIcon
+from PySide6.QtWidgets import QSystemTrayIcon
 from PySide6.QtCore import QObject, Slot
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -19,6 +20,7 @@ import tempfile
 tempdir = tempfile.gettempdir()
 import binascii
 from data import base
+import ress
 
 randstr = ""
 
@@ -65,6 +67,12 @@ def start():
     w.setProperty("url", "file://"+tempdir+"/"+randstr+".html")
     if not engine.rootObjects():
         sys.exit(-1)
+
+    #icon = QIcon("Jupiter.png")
+    #tray = QSystemTrayIcon()
+    #tray.setIcon(icon)
+    #tray.setVisible(True)
+
     onexi = app.exec()
     try:
         os.remove(tempdir+os.sep+randstr+".html")

@@ -20,11 +20,11 @@ Window {
     }
     SystemTrayIcon {
         visible: true
-        icon.source: "wuerfel.png"
-        icon.name: "QtReTa"
-        icon.mask: true
-        tooltip : qsTr("Qt ReTa")
-        id : tray
+        icon.source: "qrc:/Jupiter.png"
+        //icon.name: "QtReTa"
+        //icon.mask: true
+        //tooltip : qsTr("Qt ReTa")
+        //id : tray
         menu: Menu {
             MenuItem {
                 text: qsTr("visible")
