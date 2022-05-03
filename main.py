@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 import sys
 
-from PySide6.QtGui import QGuiApplication
+from PySide6.QtGui import QGuiApplication, QIcon
 from PySide6.QtCore import QObject, Slot
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -40,6 +40,7 @@ def start():
     app = QGuiApplication(sys.argv)
     engine = MyAppEng()
     engine.rootContext().setContextProperty("MyAppEng", engine)
+    app.setWindowIcon(QIcon("Jupiter.png"))
     # comp = b""
     #with open('/home/alex/religionen.html', "rb") as f:
     #    lines += f.read()
