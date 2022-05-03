@@ -42,7 +42,7 @@ def start():
     app = QGuiApplication(sys.argv)
     engine = MyAppEng()
     engine.rootContext().setContextProperty("MyAppEng", engine)
-    app.setWindowIcon(QIcon("symbolik3.png"))
+    app.setWindowIcon(QIcon("Jupiter.png"))
     # comp = b""
     #with open('/home/alex/religionen.html', "rb") as f:
     #    lines += f.read()

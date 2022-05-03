@@ -20,7 +20,7 @@ Window {
     }
     SystemTrayIcon {
         visible: true
-        icon.source: "qrc:/symbolik3.png"
+        icon.source: "qrc:/Jupiter.png"
         //icon.name: "QtReTa"
         //icon.mask: true
         //tooltip : qsTr("Qt ReTa")
