@@ -7,7 +7,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("ReTa")
+    title: qsTr("ReTa Icon")
     id : win
     visibility: "Maximized"
     WebEngineView {
@@ -23,7 +23,7 @@ Window {
         icon.source: "qrc:/Jupiter.png"
         //icon.name: "QtReTa"
         //icon.mask: true
-        //tooltip : qsTr("Qt ReTa")
+        //tooltip : qsTr("ReTa Icon")
         //id : tray
         menu: Menu {
             MenuItem {
