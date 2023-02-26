@@ -19,11 +19,32 @@ from PySide6.QtWidgets import QSystemTrayIcon
 
 tempdir = tempfile.gettempdir()
 import binascii
+import re
 
 import ress
 from data import base
 
 randstr = ""
+
+
+def windows_to_browser_path(path):
+    # Replace backslashes with forward slashes
+    path = path.replace("\\", "/")
+    # If the path starts with a drive letter, add "file:///" at the beginning
+    if len(path) > 1 and path[1] == ":":
+        path = "file://" + path
+    # If the path doesn't start with a drive letter, add "file:///" before the path
+    else:
+        path = "file:///" + os.path.abspath(path)
+    return path
+
+
+def linux_to_browser_path(path):
+    # Replace backslashes with forward slashes
+    path = path.replace("\\", "/")
+    # Add "file://" at the beginning
+    path = "file://" + os.path.abspath(path)
+    return path
 
 
 def fkt(var):
@@ -69,7 +90,24 @@ def start():
     engine.load(os.fspath(Path(__file__).resolve().parent / "main.qml"))
     w = engine.rootObjects()[0].children()[1]
     # w.setProperty("url", "file://"+tempdir+"/"+randstr+".html")
-    w.setProperty("url", "file:///home/alex/religionen.html?preselect=no_universal")
+    path_regex = re.compile(
+        r'^[a-zA-Z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$|^/([^/\0]+(/[^/\0]+)*)?$'
+    )
+    pfad = ""
+    browser_path = "file:///home/alex/religionen.html?preselect=no_universal"
+    for path in sys.argv:
+        if path_regex.match(path):
+            pfad = path
+    if pfad != "":
+        windows_path_regex = re.compile(
+            r'^[a-zA-Z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$'
+        )
+        linux_path_regex = re.compile(r"^/.*$")
+        if windows_path_regex.match(pfad):
+            browser_path = windows_to_browser_path(pfad)
+        elif linux_path_regex.match(pfad):
+            browser_path = linux_to_browser_path(pfad)
+    w.setProperty("url", browser_path)
     if not engine.rootObjects():
         sys.exit(-1)
     if "-tray" in sys.argv:
