@@ -95,7 +95,7 @@ def start():
     )
     pfad = ""
     browser_path = "file:///home/alex/religionen.html?preselect=no_universal"
-    for path in sys.argv:
+    for path in sys.argv[1:]:
         if path_regex.match(path):
             pfad = path
     if pfad != "":
