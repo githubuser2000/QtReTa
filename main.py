@@ -1,28 +1,28 @@
 #!/usr/bin/env python3.10
 # This Python file uses the following encoding: utf-8
-import multiprocessing
+# import multiprocessing
 import os
-import random
-import string
+# import random
+import re
+# import string
 import sys
 # from pathlib import Path
 # home = str(Path.home())
-import tempfile
+# import tempfile
 from pathlib import Path
 
-import zstd
+# import zstd
 from PySide6.QtCore import QObject, Slot
 from PySide6.QtGui import QGuiApplication, QIcon
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import QSystemTrayIcon
 
-tempdir = tempfile.gettempdir()
-import binascii
-import re
+# tempdir = tempfile.gettempdir()
+# import binascii
 
-import ress
-from data import base
+# import ress
+# from data import base
 
 randstr = ""
 
@@ -68,6 +68,8 @@ def start():
     engine = MyAppEng()
     engine.rootContext().setContextProperty("MyAppEng", engine)
     app.setWindowIcon(QIcon(":/Jupiter.png"))
+    #print(":"+os.fspath(Path(__file__).resolve().parent / "Jupiter.png"))
+    #app.setWindowIcon(QIcon("/"+os.fspath(Path(__file__).resolve().parent / "Jupiter.png")))
     # comp = b""
     # with open('/home/alex/religionen.html', "rb") as f:
     #    lines += f.read()
