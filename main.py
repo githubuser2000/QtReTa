@@ -2,16 +2,16 @@
 # This Python file uses the following encoding: utf-8
 # import multiprocessing
 import os
-# import random
+#import random
 import re
-# import string
+#import string
 import sys
 # from pathlib import Path
 # home = str(Path.home())
 # import tempfile
 from pathlib import Path
 
-# import zstd
+import zstd
 from PySide6.QtCore import QObject, Slot
 from PySide6.QtGui import QGuiApplication, QIcon
 from PySide6.QtQml import QQmlApplicationEngine
@@ -19,10 +19,10 @@ from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import QSystemTrayIcon
 
 # tempdir = tempfile.gettempdir()
-# import binascii
+#import binascii
 
-# import ress
-# from data import base
+import ress
+#from data import base
 
 randstr = ""
 
@@ -67,9 +67,9 @@ def start():
     app = QGuiApplication(sys.argv)
     engine = MyAppEng()
     engine.rootContext().setContextProperty("MyAppEng", engine)
-    app.setWindowIcon(QIcon(":/Jupiter.png"))
+    # app.setWindowIcon(QIcon(":/Jupiter.png"))
     #print(":"+os.fspath(Path(__file__).resolve().parent / "Jupiter.png"))
-    #app.setWindowIcon(QIcon("/"+os.fspath(Path(__file__).resolve().parent / "Jupiter.png")))
+    app.setWindowIcon(QIcon(os.fspath(Path(__file__).resolve().parent / "Jupiter.png")))
     # comp = b""
     # with open('/home/alex/religionen.html', "rb") as f:
     #    lines += f.read()
