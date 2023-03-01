@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+#!/usr/bin/env python3
 # This Python file uses the following encoding: utf-8
 # import multiprocessing
 import os
@@ -11,7 +11,7 @@ import sys
 # import tempfile
 from pathlib import Path
 
-import zstd
+# import zstd
 from PySide6.QtCore import QObject, Slot
 from PySide6.QtGui import QGuiApplication, QIcon
 from PySide6.QtQml import QQmlApplicationEngine
