@@ -19,7 +19,7 @@ from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import QApplication, QMainWindow, QSystemTrayIcon
 
-# import ress
+import ress
 
 # print(dir(PySide6.QtCore))
 # exit
