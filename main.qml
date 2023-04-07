@@ -47,19 +47,18 @@ Window {
             let addy2 = web.url.toString().substring(0, "http://127.0.0.1/".length);
             let addy3 = web.url.toString().substring(0, "http://127.0.0.1:8888/".length);
             //console.log("Host-Adresse:", "http://127.0.0.1:1313/" == addy);
-            console.log("addy3 anfang:", addy3);
-            console.log("addy3 anfang:",  "http://127.0.0.1:8888/");
+            //console.log("addy3 anfang:", addy3);
+            //console.log("addy3 anfang:",  "http://127.0.0.1:8888/");
             if (addy2 == "http://127.0.0.1/" || addy == "http://127.0.0.1:1313/") {
                 icon.source = "qrc:/hugo.png";
-            } else {
+            } else
                 if (addy3 == "http://127.0.0.1:8888/" || addy3 == "http://localhost:8888/") {
-                    console.log("addy3 ja:", addy3);
+                    //console.log("addy3 ja:", addy3);
                     icon.source = "qrc:/python.png";
                 } else {
-                    console.log("addy2 ja");
+                    //console.log("addy2 ja");
                     icon.source = "qrc:/Jupiter.png";
                 }
-            }
             return icon.source
         }
     }
