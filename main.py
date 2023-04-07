@@ -60,20 +60,6 @@ def ifWebAddr(input_str: str) -> bool:
     global hugo
     regex = r"^https?://(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(?:/?|[/?]\S+)$|^(?:\d{1,3}\.){3}\d{1,3}$"
     # regex basiert auf: https://stackoverflow.com/a/3809435/15698617
-    if (
-        len(
-            {input_str}
-            & {
-                "http://localhost:1313/",
-                "http://localhost:1313",
-                "http://localhost",
-                "http://localhost/",
-            }
-        )
-        == 0
-    ):
-        hugo = True
-        return True
     if re.match(regex, input_str):
         return True
     else:
