@@ -21,6 +21,8 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QSystemTrayIcon
 
 import ress
 
+hugo = False
+
 # print(dir(PySide6.QtCore))
 # exit
 # sys.stderr = open(os.devnull, "w")
@@ -54,11 +56,8 @@ def linux_to_browser_path(path):
     return path
 
 
-def fkt(var):
-    print("bla " + str(var))
-
-
 def ifWebAddr(input_str: str) -> bool:
+    global hugo
     regex = r"^https?://(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(?:/?|[/?]\S+)$|^(?:\d{1,3}\.){3}\d{1,3}$"
     # regex basiert auf: https://stackoverflow.com/a/3809435/15698617
     if (
@@ -73,6 +72,7 @@ def ifWebAddr(input_str: str) -> bool:
         )
         == 0
     ):
+        hugo = True
         return True
     if re.match(regex, input_str):
         return True
@@ -92,13 +92,21 @@ class MyAppEng(QQmlApplicationEngine):
 
 
 def start():
+    global hugo
     # global randstr
     app = QGuiApplication(sys.argv)
     engine = MyAppEng()
     engine.rootContext().setContextProperty("MyAppEng", engine)
     # app.setWindowIcon(QIcon(":/Jupiter.png"))
     # print(":"+os.fspath(Path(__file__).resolve().parent / "Jupiter.png"))
-    app.setWindowIcon(QIcon(os.fspath(Path(__file__).resolve().parent / "Jupiter.png")))
+    if hugo:
+        app.setWindowIcon(
+            QIcon(os.fspath(Path(__file__).resolve().parent / "hugo.png"))
+        )
+    else:
+        app.setWindowIcon(
+            QIcon(os.fspath(Path(__file__).resolve().parent / "Jupiter.png"))
+        )
     # comp = b""
     # with open('/home/alex/religionen.html', "rb") as f:
     #    lines += f.read()
