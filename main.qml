@@ -15,16 +15,17 @@ Window {
         visible: true
         anchors.fill: parent
         url: ""
-        onLoadingChanged : if (loadProgress === 100 )  MyAppEng.entf()
+        //onLoadingChanged : if (loadProgress === 100 )  MyAppEng.entf()
+        onLoadingChanged : if (loadProgress === 100 )  tray.updateSystemTrayIcon()
 
     }
     SystemTrayIcon {
         visible: true
-        icon.source: "qrc:/Jupiter.png"
+        icon.source: updateSystemTrayIcon();
         //icon.name: "QtReTa"
         //icon.mask: true
         //tooltip : qsTr("ReTa Icon")
-        //id : tray
+        id : tray
         menu: Menu {
             MenuItem {
                 text: qsTr("visible")
@@ -39,6 +40,18 @@ Window {
         }
         onActivated: {
             win.visible = ! win.visible
+            updateSystemTrayIcon();
+        }
+        function updateSystemTrayIcon() {
+            console.log("Host-Adresse:", web.url);
+            let addy = web.url.toString();
+            //console.log("Host-Adresse:", "http://127.0.0.1:1313/" == addy);
+            if (addy == "http://127.0.0.1/" || addy == "http://127.0.0.1:1313/") {
+                icon.source = "qrc:/hugo.png";
+            } else {
+                icon.source = "qrc:/Jupiter.png";
+            }
+            return icon.source
         }
     }
 

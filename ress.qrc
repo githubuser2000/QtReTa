@@ -1,6 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>Jupiter.png</file>
+    <file>hugo.png</file>
     <file>symbolik3.png</file>
 </qresource>
 </RCC>

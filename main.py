@@ -99,11 +99,25 @@ def start():
     engine.rootContext().setContextProperty("MyAppEng", engine)
     # app.setWindowIcon(QIcon(":/Jupiter.png"))
     # print(":"+os.fspath(Path(__file__).resolve().parent / "Jupiter.png"))
+    path_regex = re.compile(
+        r'^[a-zA-Z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$|^/([^/\0]+(/[^/\0]+)*)?$'
+    )
+    pfad = ""
+    browser_path = "file:///home/alex/religionen.html?preselect=no_universal"
+    tueb = 0
+    for path in sys.argv[1:]:
+        if path_regex.match(path):
+            pfad = path
+        elif ifWebAddr(path):
+            tueb = 1
+            browser_path = path
     if hugo:
+        print("hugo.png ist das Icon")
         app.setWindowIcon(
             QIcon(os.fspath(Path(__file__).resolve().parent / "hugo.png"))
         )
     else:
+        print("Jupiter.png ist das Icon")
         app.setWindowIcon(
             QIcon(os.fspath(Path(__file__).resolve().parent / "Jupiter.png"))
         )
@@ -129,18 +143,6 @@ def start():
     engine.load(os.fspath(Path(__file__).resolve().parent / "main.qml"))
     w = engine.rootObjects()[0].children()[1]
     # w.setProperty("url", "file://"+tempdir+"/"+randstr+".html")
-    path_regex = re.compile(
-        r'^[a-zA-Z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$|^/([^/\0]+(/[^/\0]+)*)?$'
-    )
-    pfad = ""
-    browser_path = "file:///home/alex/religionen.html?preselect=no_universal"
-    tueb = 0
-    for path in sys.argv[1:]:
-        if path_regex.match(path):
-            pfad = path
-        elif ifWebAddr(path):
-            tueb = 1
-            browser_path = path
     if pfad != "":
         windows_path_regex = re.compile(
             r'^[a-zA-Z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$'
