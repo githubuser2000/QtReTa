@@ -44,7 +44,7 @@ Window {
         }
         function updateSystemTrayIcon() {
             console.log("Host-Adresse:", web.url);
-            let addy = web.url.toString();
+            let addy = web.url.toString().substring(0, "http://127.0.0.1:1313/".length);
             //console.log("Host-Adresse:", "http://127.0.0.1:1313/" == addy);
             if (addy == "http://127.0.0.1/" || addy == "http://127.0.0.1:1313/") {
                 icon.source = "qrc:/hugo.png";
