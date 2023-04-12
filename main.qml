@@ -55,10 +55,14 @@ Window {
                 if (addy3 == "http://127.0.0.1:8888/" || addy3 == "http://localhost:8888/") {
                     //console.log("addy3 ja:", addy3);
                     icon.source = "qrc:/python.png";
-                } else {
-                    //console.log("addy2 ja");
-                    icon.source = "qrc:/Jupiter.png";
-                }
+                } else
+                    if (web.url.toString().includes("youtube")) {
+                        //console.log("addy3 ja:", addy3);
+                        icon.source = "qrc:/youtube.png";
+                    } else {
+                        //console.log("addy2 ja");
+                        icon.source = "qrc:/Jupiter.png";
+                    }
             return icon.source
         }
     }
