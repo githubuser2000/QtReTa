@@ -6,6 +6,8 @@ import os
 import re
 # import string
 import sys
+from collections import defaultdict
+from enum import Enum
 # from pathlib import Path
 # home = str(Path.home())
 # import tempfile
@@ -21,7 +23,14 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QSystemTrayIcon
 
 import ress
 
-hugo = False
+
+class WSite(Enum):
+    none = 0
+    jupiter = 1
+    hugo = 2
+    python = 3
+    youtube = 4
+
 
 # print(dir(PySide6.QtCore))
 # exit
@@ -56,30 +65,24 @@ def linux_to_browser_path(path):
     return path
 
 
-def ifWebAddr(input_str: str) -> bool:
-    global hugo
+def ifWebAddr(input_str: str) -> tuple:
     if input_str == "-tray":
-        return False
+        return False, WSite.none
     regex = r"^https?://(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(?:/?|[/?]\S+)$|^(?:\d{1,3}\.){3}\d{1,3}$"
     # regex basiert auf: https://stackoverflow.com/a/3809435/15698617
-    if (
-        len(
-            {input_str}
-            & {
-                "http://localhost:1313/",
-                "http://localhost:1313",
-                "http://localhost",
-                "http://localhost/",
-            }
-        )
-        == 0
-    ):
-        hugo = True
-        return True
+    print("parameter: " + input_str)
+    if "localhost" in input_str or ":1313" in input_str or "127.0.0.1" in input_str:
+        return True, WSite.hugo
+    elif "youtube" in input_str:
+        return True, WSite.youtube
+    elif "8888" in input_str:
+        return True, WSite.python
+    elif "religionen.html" in input_str:
+        return True, WSite.jupiter
     if re.match(regex, input_str):
-        return True
+        return True, WSite.jupiter
     else:
-        return False
+        return False, WSite.none
 
 
 class MyAppEng(QQmlApplicationEngine):
@@ -94,7 +97,7 @@ class MyAppEng(QQmlApplicationEngine):
 
 
 def start():
-    global hugo
+    global wsite
     QLoggingCategory.setFilterRules("*.error=true\n*.info=false\n*.warning=false")
     # global randstr
     app = QGuiApplication(sys.argv)
@@ -102,12 +105,8 @@ def start():
     engine.rootContext().setContextProperty("MyAppEng", engine)
     # app.setWindowIcon(QIcon(":/Jupiter.png"))
     # print(":"+os.fspath(Path(__file__).resolve().parent / "Jupiter.png"))
-    #if hugo:
-    #    print("hugo.png ist das Icon")
-    #    app.setWindowIcon(
-    #        QIcon(os.fspath(Path(__file__).resolve().parent / "hugo.png"))
-    #    )
-    #else:
+    # app.setWindowIcon(QIcon(":/Jupiter.png"))
+    # else:
     #    print("Jupiter.png ist das Icon")
     #    app.setWindowIcon(
     #        QIcon(os.fspath(Path(__file__).resolve().parent / "Jupiter.png"))
@@ -140,12 +139,16 @@ def start():
     pfad = ""
     browser_path = "file:///home/alex/religionen.html?preselect=no_universal"
     tueb = 0
+    wsite = WSite.none
     for path in sys.argv[1:]:
+        ifRemote, which = ifWebAddr(path)
         if path_regex.match(path):
             pfad = path
-        elif ifWebAddr(path):
+        elif ifRemote:
             tueb = 1
             browser_path = path
+        if which != WSite.none:
+            wsite = which
     if pfad != "":
         windows_path_regex = re.compile(
             r'^[a-zA-Z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$'
@@ -157,7 +160,7 @@ def start():
         elif linux_path_regex.match(pfad):
             browser_path = linux_to_browser_path(pfad)
             tueb = 3
-    #print("browser address: {}".format(browser_path))
+    # print("browser address: {}".format(browser_path))
     w.setProperty("url", browser_path)
     if not engine.rootObjects():
         sys.exit(-1)
@@ -167,6 +170,18 @@ def start():
         print(
             "possible parameters: -tray\nAnd web addresses or filesystem adresses for windows or unix"
         )
+    wsites = defaultdict(lambda: "Jupiter.png")
+    wsites |= {
+        WSite.hugo: "hugo.png",
+        WSite.python: "python.png",
+        WSite.jupiter: "Jupiter.png",
+        WSite.none: "Jupiter.png",
+        WSite.youtube: "youtube.png",
+    }
+    # if hugo:
+    print(wsites[wsite] + " ist das Icon, durch: " + str(wsite))
+    # app.setWindowIcon(QIcon(os.fspath(Path(__file__).resolve().parent / wsites[wsite])))
+    app.setWindowIcon(QIcon(":/" + wsites[wsite]))
     # icon = QIcon("Jupiter.png")
     # tray = QSystemTrayIcon()
     # tray.setIcon(icon)
