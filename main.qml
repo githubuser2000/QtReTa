@@ -10,6 +10,7 @@ Window {
     title: qsTr("ReTa Icon")
     id : win
     visibility: "Maximized"
+    flags: Qt.FramelessWindowHint
     WebEngineView {
         id : web
         visible: true
@@ -50,6 +51,7 @@ Window {
             //console.log("addy3 anfang:", addy3);
             //console.log("addy3 anfang:",  "http://127.0.0.1:8888/");
             if (addy2 == "http://127.0.0.1/" || addy == "http://127.0.0.1:1313/") {
+
                 icon.source = "qrc:/hugo.png";
             } else
                 if (addy3 == "http://127.0.0.1:8888/" || addy3 == "http://localhost:8888/") {
@@ -60,7 +62,7 @@ Window {
                         //console.log("addy3 ja:", addy3);
                         icon.source = "qrc:/youtube.png";
                     } else {
-                        //console.log("addy2 ja");
+                        //console.log("Icon ist Jupiter");
                         icon.source = "qrc:/Jupiter.png";
                     }
             return icon.source

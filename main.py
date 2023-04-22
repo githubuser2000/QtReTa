@@ -15,14 +15,11 @@ from pathlib import Path
 
 # import PySide6.QtCore
 # import zstd
-from PySide6.QtCore import QLoggingCategory, QObject, QUrl, Slot
+from PySide6.QtCore import QLoggingCategory
 from PySide6.QtGui import QGuiApplication, QIcon
 from PySide6.QtQml import QQmlApplicationEngine
-from PySide6.QtWebEngineWidgets import QWebEngineView
-from PySide6.QtWidgets import QApplication, QMainWindow, QSystemTrayIcon
 
 import ress
-
 
 class WSite(Enum):
     none = 0
