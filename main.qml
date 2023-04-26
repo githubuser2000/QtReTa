@@ -50,7 +50,7 @@ Window {
             //console.log("Host-Adresse:", "http://127.0.0.1:1313/" == addy);
             //console.log("addy3 anfang:", addy3);
             //console.log("addy3 anfang:",  "http://127.0.0.1:8888/");
-            if (addy2 == "http://127.0.0.1/" || addy == "http://127.0.0.1:1313/") {
+            if (addy2 == "http://127.0.0.1/" || addy == "http://127.0.0.1:1313/" || web.url.toString().includes(":1313")) {
 
                 icon.source = "qrc:/hugo.png";
             } else
