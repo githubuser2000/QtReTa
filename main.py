@@ -21,6 +21,7 @@ from PySide6.QtQml import QQmlApplicationEngine
 
 import ress
 
+
 class WSite(Enum):
     none = 0
     jupiter = 1
@@ -68,7 +69,7 @@ def ifWebAddr(input_str: str) -> tuple:
     regex = r"^https?://(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(?:/?|[/?]\S+)$|^(?:\d{1,3}\.){3}\d{1,3}$"
     # regex basiert auf: https://stackoverflow.com/a/3809435/15698617
     print("parameter: " + input_str)
-    if "localhost" in input_str or ":1313" in input_str or "127.0.0.1" in input_str:
+    if "localhost" in input_str or ":1313" in input_str or ":1314" in input_str or "127.0.0.1" in input_str:
         return True, WSite.hugo
     elif "youtube" in input_str:
         return True, WSite.youtube
@@ -134,7 +135,9 @@ def start():
         r'^[a-zA-Z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$|^/([^/\0]+(/[^/\0]+)*)?$'
     )
     pfad = ""
-    browser_path = "file:///home/alex/religionen.html?preselect=no_universal"
+    browser_path = (
+        "file:///home/alex/religionen.html?preselect=no_universal&background=710"
+    )
     tueb = 0
     wsite = WSite.none
     for path in sys.argv[1:]:
